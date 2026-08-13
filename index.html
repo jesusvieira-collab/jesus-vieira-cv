@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jesús Vieira — Supervisor de Logística</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:#000914;color:#EAF2FF;font-family:'Helvetica Neue',Helvetica,'Sora',Arial,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:#418FDE;text-decoration:none}
+  a:hover{color:#7FB6ED}
+  ::selection{background:#418FDE;color:#001129}
+  @keyframes ftdFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+  @keyframes ftdPulse{0%,100%{opacity:.35}50%{opacity:.9}}
+  @keyframes ftdReveal{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div style="position:relative;min-height:100vh;width:100%">
+
+  <canvas ref="{{ canvasRef }}" style="position:fixed;inset:0;width:100vw;height:100vh;z-index:0;display:block"></canvas>
+  <div style="position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% -10%,rgba(65,143,222,.16),transparent 55%),radial-gradient(90% 70% at 85% 110%,rgba(0,30,98,.55),transparent 60%),linear-gradient(180deg,rgba(0,6,18,.35),rgba(0,6,18,.72))"></div>
+
+  <div style="position:relative;z-index:2">
+
+    <!-- NAV -->
+    <nav style="position:fixed;top:0;left:0;right:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:18px 6vw;backdrop-filter:blur(14px);background:linear-gradient(180deg,rgba(0,9,20,.72),rgba(0,9,20,.28));border-bottom:1px solid rgba(65,143,222,.14)">
+      <a href="#top" style="display:flex;align-items:center;gap:12px;color:#EAF2FF">
+        <span style="width:40px;height:40px;border-radius:11px;display:grid;place-items:center;font-weight:800;font-size:16px;letter-spacing:.5px;color:#fff;background:linear-gradient(135deg,#418FDE,#001E62);box-shadow:0 6px 20px rgba(65,143,222,.4)">JV</span>
+        <span style="display:flex;flex-direction:column;line-height:1.05">
+          <span style="font-weight:700;font-size:15px;letter-spacing:.4px">Jesús Vieira</span>
+          <span style="font-weight:400;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7FB6ED">Logística CENDIS</span>
+        </span>
+      </a>
+      <div style="display:flex;gap:30px;align-items:center;font-size:13.5px;font-weight:500;letter-spacing:.3px">
+        <sc-for list="{{ nav }}" as="n" hint-placeholder-count="5">
+          <a href="{{ n.href }}" style="color:#B9CEEA">{{ n.label }}</a>
+        </sc-for>
+        <a href="#contacto" style="color:#fff;background:linear-gradient(135deg,#418FDE,#2C6FBF);padding:9px 18px;border-radius:999px;font-weight:600;box-shadow:0 6px 18px rgba(65,143,222,.35)">Contacto</a>
+      </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="top" style="min-height:100vh;display:flex;align-items:center;padding:120px 6vw 60px;gap:5vw;flex-wrap:wrap">
+      <div style="flex:1 1 460px;min-width:320px;animation:ftdReveal .9s ease both">
+        <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 15px;border-radius:999px;border:1px solid rgba(65,143,222,.35);background:rgba(65,143,222,.08);font-size:12.5px;letter-spacing:1.5px;text-transform:uppercase;color:#7FB6ED;font-weight:600">
+          <span style="width:7px;height:7px;border-radius:50%;background:#33D17A;box-shadow:0 0 10px #33D17A;animation:ftdPulse 2s infinite"></span>
+          Charallave · Miranda · Venezuela
+        </div>
+        <h1 style="font-size:clamp(44px,6.6vw,88px);line-height:.96;font-weight:800;letter-spacing:-1.5px;margin:22px 0 0">
+          Jesús Enrique<br><span style="background:linear-gradient(105deg,#7FB6ED,#418FDE 45%,#EAF2FF);-webkit-background-clip:text;background-clip:text;color:transparent">Vieira Brito</span>
+        </h1>
+        <p style="margin-top:20px;font-size:clamp(17px,2vw,21px);font-weight:500;color:#C9DDF6;max-width:560px;line-height:1.5">
+          Supervisor de Logística — <strong style="color:#fff;font-weight:700">Almacenaje &amp; Reposición</strong> en centros de distribución de alto volumen. Liderazgo de equipos, análisis de datos operativos y mejora continua bajo <span style="color:#7FB6ED">Lean Logistics</span>.
+        </p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:32px">
+          <a href="#experiencia" style="color:#001129;background:#EAF2FF;padding:14px 26px;border-radius:999px;font-weight:700;font-size:14.5px;box-shadow:0 10px 30px rgba(234,242,255,.15)">Ver trayectoria</a>
+          <a href="#herramientas" style="color:#EAF2FF;border:1px solid rgba(127,182,237,.4);padding:14px 26px;border-radius:999px;font-weight:600;font-size:14.5px;background:rgba(65,143,222,.06)">Herramientas &amp; sistemas</a>
+        </div>
+      </div>
+
+      <div style="flex:0 1 380px;min-width:300px;display:flex;justify-content:center;animation:ftdReveal 1.1s ease both">
+        <div style="position:relative;animation:ftdFloat 7s ease-in-out infinite">
+          <div style="position:absolute;inset:-26px;border-radius:32px;background:conic-gradient(from 120deg,rgba(65,143,222,.5),rgba(0,30,98,.1),rgba(127,182,237,.5),rgba(0,30,98,.1),rgba(65,143,222,.5));filter:blur(26px);opacity:.7"></div>
+          <div style="position:relative;width:min(78vw,340px);aspect-ratio:410/655;border-radius:26px;overflow:hidden;border:1px solid rgba(127,182,237,.35);box-shadow:0 30px 80px rgba(0,10,30,.7)">
+            <img src="./jesus-supervisor.jpg" alt="Jesús Vieira, supervisor de logística" style="width:100%;height:100%;object-fit:cover;object-position:center top">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,15,41,.85))"></div>
+            <div style="position:absolute;left:18px;bottom:16px;right:18px;display:flex;justify-content:space-between;align-items:flex-end">
+              <div>
+                <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#9EC3EE;font-weight:600">Supervisor Nocturno</div>
+                <div style="font-weight:700;font-size:17px">CENDIS Farmatodo</div>
+              </div>
+              <div style="font-size:11px;color:#9EC3EE;text-align:right;line-height:1.3">Turno<br>24/7</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- STATS -->
+    <section style="padding:0 6vw 30px">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:16px;border-top:1px solid rgba(65,143,222,.16);border-bottom:1px solid rgba(65,143,222,.16);padding:34px 0">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="text-align:center">
+            <div style="font-size:clamp(34px,4vw,52px);font-weight:800;line-height:1;background:linear-gradient(120deg,#EAF2FF,#7FB6ED);-webkit-background-clip:text;background-clip:text;color:transparent">{{ s.value }}</div>
+            <div style="margin-top:8px;font-size:13px;color:#A9C4E6;letter-spacing:.4px">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- PERFIL -->
+    <section id="perfil" style="padding:70px 6vw">
+      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:0.85fr 1.15fr;gap:6vw;align-items:start" data-cols>
+        <div>
+          <span style="font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:#7FB6ED;font-weight:600">01 · Perfil</span>
+          <h2 style="font-size:clamp(28px,3.4vw,42px);font-weight:800;letter-spacing:-.5px;margin-top:14px;line-height:1.08">Operaciones que no se detienen</h2>
+        </div>
+        <div>
+          <p style="font-size:clamp(16px,1.7vw,19px);line-height:1.7;color:#C9DDF6">
+            Supervisor de operaciones logísticas con sólida experiencia en <strong style="color:#fff">almacenaje y reposición de mercancía</strong> en centros de distribución de alto volumen. Especializado en liderazgo de equipos, análisis de datos operativos —<span style="color:#7FB6ED">BI, Excel avanzado, Oracle WMS</span>— y mejora continua bajo metodología Lean Logistics.
+          </p>
+          <p style="font-size:clamp(16px,1.7vw,19px);line-height:1.7;color:#94B4DC;margin-top:18px">
+            Capacidad demostrada para gestionar operaciones en turnos diurnos y nocturnos, garantizando continuidad y eficiencia 24/7.
+          </p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:26px">
+            <sc-for list="{{ traits }}" as="t" hint-placeholder-count="5">
+              <span style="padding:8px 15px;border-radius:999px;border:1px solid rgba(127,182,237,.28);background:rgba(65,143,222,.07);font-size:13px;color:#CFE1F7;font-weight:500">{{ t }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA -->
+    <section id="experiencia" style="padding:70px 6vw">
+      <div style="max-width:1000px;margin:0 auto">
+        <span style="font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:#7FB6ED;font-weight:600">02 · Trayectoria</span>
+        <h2 style="font-size:clamp(28px,3.4vw,42px);font-weight:800;letter-spacing:-.5px;margin:14px 0 44px;line-height:1.08">Experiencia profesional</h2>
+        <div style="display:flex;flex-direction:column;gap:22px">
+          <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="3">
+            <div style="position:relative;display:flex;gap:26px;flex-wrap:wrap;align-items:stretch;padding:28px 30px 30px;border-radius:20px;border:1px solid rgba(65,143,222,.18);background:linear-gradient(160deg,rgba(65,143,222,.09),rgba(0,20,60,.35));overflow:hidden">
+              <div style="position:absolute;top:0;left:0;bottom:0;width:3px;background:linear-gradient(180deg,#418FDE,transparent)"></div>
+              <div style="flex:1 1 340px;min-width:280px">
+                <div style="display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:baseline">
+                  <div>
+                    <h3 style="font-size:clamp(19px,2.2vw,25px);font-weight:700;letter-spacing:-.3px">{{ j.role }}</h3>
+                    <div style="margin-top:5px;font-size:15px;color:#7FB6ED;font-weight:600">{{ j.company }}</div>
+                  </div>
+                  <span style="font-size:12.5px;font-weight:600;letter-spacing:.5px;color:#001129;background:#9EC3EE;padding:6px 13px;border-radius:999px;white-space:nowrap">{{ j.period }}</span>
+                </div>
+                <ul style="margin-top:16px;display:flex;flex-direction:column;gap:9px;list-style:none">
+                  <sc-for list="{{ j.points }}" as="p" hint-placeholder-count="3">
+                    <li style="position:relative;padding-left:22px;font-size:14.5px;line-height:1.55;color:#C4D8F2">
+                      <span style="position:absolute;left:0;top:8px;width:7px;height:7px;border-radius:50%;background:#418FDE;box-shadow:0 0 8px rgba(65,143,222,.7)"></span>{{ p }}
+                    </li>
+                  </sc-for>
+                </ul>
+              </div>
+              <sc-if value="{{ j.img }}" hint-placeholder-val="">
+                <figure style="flex:0 1 240px;min-width:210px;margin:0;position:relative;border-radius:16px;overflow:hidden;border:1px solid rgba(127,182,237,.28)">
+                  <img src="{{ j.img }}" alt="{{ j.imgCap }}" loading="lazy" style="width:100%;height:100%;min-height:190px;object-fit:cover;transition:transform .5s" style-hover="transform:scale(1.05)">
+                  <figcaption style="position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;font-size:11.5px;font-weight:600;color:#EAF2FF;background:linear-gradient(180deg,transparent,rgba(0,12,34,.88))">{{ j.imgCap }}</figcaption>
+                </figure>
+              </sc-if>
+            </div>
+          </sc-for>
+        </div>
+
+        <div style="margin-top:38px">
+          <div style="font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#7FB6ED;font-weight:700;margin-bottom:16px">Momentos en CENDIS</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+            <sc-for list="{{ moments }}" as="m" hint-placeholder-count="3">
+              <figure style="position:relative;margin:0;border-radius:14px;overflow:hidden;aspect-ratio:4/3;border:1px solid rgba(65,143,222,.2)">
+                <img src="{{ m.src }}" alt="{{ m.cap }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .5s" style-hover="transform:scale(1.06)">
+                <figcaption style="position:absolute;left:0;right:0;bottom:0;padding:22px 12px 10px;font-size:12px;font-weight:600;color:#EAF2FF;background:linear-gradient(180deg,transparent,rgba(0,12,34,.9))">{{ m.cap }}</figcaption>
+              </figure>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- HERRAMIENTAS -->
+    <section id="herramientas" style="padding:70px 6vw">
+      <div style="max-width:1100px;margin:0 auto">
+        <span style="font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:#7FB6ED;font-weight:600">03 · Stack técnico</span>
+        <h2 style="font-size:clamp(28px,3.4vw,42px);font-weight:800;letter-spacing:-.5px;margin:14px 0 12px;line-height:1.08">Herramientas &amp; sistemas</h2>
+        <p style="color:#94B4DC;max-width:560px;font-size:16px;line-height:1.6;margin-bottom:38px">Del dato crudo del WMS a los indicadores que dirigen la operación del turno.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px">
+          <sc-for list="{{ tools }}" as="t" hint-placeholder-count="4">
+            <div style="padding:26px;border-radius:18px;border:1px solid rgba(65,143,222,.18);background:rgba(65,143,222,.06);transition:transform .3s,border-color .3s" style-hover="transform:translateY(-6px);border-color:rgba(127,182,237,.55)">
+              <div style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7FB6ED;font-weight:700">{{ t.tag }}</div>
+              <h3 style="margin-top:8px;font-size:20px;font-weight:700">{{ t.name }}</h3>
+              <p style="margin-top:10px;font-size:14px;line-height:1.55;color:#B3CBEC">{{ t.desc }}</p>
+              <div style="display:flex;gap:7px;flex-wrap:wrap;margin-top:16px">
+                <sc-for list="{{ t.chips }}" as="c" hint-placeholder-count="3">
+                  <span style="font-size:11.5px;padding:4px 10px;border-radius:7px;background:rgba(0,30,98,.5);border:1px solid rgba(65,143,222,.3);color:#CFE1F7;font-family:'SF Mono',ui-monospace,monospace">{{ c }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- APTITUDES + FORMACION -->
+    <section style="padding:70px 6vw">
+      <div style="max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:5vw" data-cols>
+        <div>
+          <span style="font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:#7FB6ED;font-weight:600">04 · Aptitudes</span>
+          <h2 style="font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.5px;margin:14px 0 28px;line-height:1.1">Fortalezas clave</h2>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ skills }}" as="s" hint-placeholder-count="5">
+              <div style="display:flex;align-items:center;gap:14px;padding:15px 18px;border-radius:14px;background:rgba(65,143,222,.06);border:1px solid rgba(65,143,222,.15)">
+                <span style="width:34px;height:34px;flex:none;border-radius:10px;display:grid;place-items:center;background:linear-gradient(135deg,#418FDE,#001E62);font-weight:800;font-size:13px;color:#fff">{{ s.n }}</span>
+                <span style="font-size:15px;font-weight:500;color:#DCE9FA">{{ s.label }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div>
+          <span style="font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:#7FB6ED;font-weight:600">05 · Formación</span>
+          <h2 style="font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.5px;margin:14px 0 28px;line-height:1.1">Educación</h2>
+          <div style="position:relative;padding-left:24px">
+            <div style="position:absolute;left:5px;top:6px;bottom:6px;width:2px;background:linear-gradient(180deg,#418FDE,rgba(65,143,222,.1))"></div>
+            <sc-for list="{{ education }}" as="e" hint-placeholder-count="4">
+              <div style="position:relative;padding-bottom:26px">
+                <span style="position:absolute;left:-24px;top:4px;width:12px;height:12px;border-radius:50%;background:#001129;border:2px solid #418FDE;box-shadow:0 0 10px rgba(65,143,222,.6)"></span>
+                <div style="font-size:12px;color:#7FB6ED;font-weight:700;letter-spacing:.5px">{{ e.year }}</div>
+                <div style="font-size:16px;font-weight:600;margin-top:3px;line-height:1.3">{{ e.title }}</div>
+                <div style="font-size:13.5px;color:#94B4DC;margin-top:2px">{{ e.place }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section style="padding:40px 6vw 70px">
+      <div style="max-width:1100px;margin:0 auto">
+        <span style="font-size:12.5px;letter-spacing:3px;text-transform:uppercase;color:#7FB6ED;font-weight:600">06 · Galería</span>
+        <h2 style="font-size:clamp(26px,3vw,36px);font-weight:800;letter-spacing:-.5px;margin:14px 0 28px;line-height:1.1">En el terreno</h2>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px">
+          <sc-for list="{{ gallery }}" as="g" hint-placeholder-count="4">
+            <figure style="position:relative;border-radius:16px;overflow:hidden;aspect-ratio:3/4;border:1px solid rgba(65,143,222,.2)">
+              <img src="{{ g.src }}" alt="{{ g.cap }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;transition:transform .5s" style-hover="transform:scale(1.06)">
+              <figcaption style="position:absolute;left:0;right:0;bottom:0;padding:26px 14px 12px;font-size:12.5px;font-weight:600;color:#EAF2FF;background:linear-gradient(180deg,transparent,rgba(0,12,34,.9))">{{ g.cap }}</figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACTO -->
+    <section id="contacto" style="padding:80px 6vw 60px">
+      <div style="max-width:900px;margin:0 auto;text-align:center;padding:56px 6vw;border-radius:28px;border:1px solid rgba(65,143,222,.28);background:radial-gradient(120% 120% at 50% 0%,rgba(65,143,222,.18),rgba(0,20,60,.4))">
+        <h2 style="font-size:clamp(30px,4vw,52px);font-weight:800;letter-spacing:-1px;line-height:1.05">Conversemos</h2>
+        <p style="color:#B3CBEC;font-size:17px;margin-top:16px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.6">Disponible para nuevos retos en operaciones y logística. Escríbeme directamente.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:34px">
+          <sc-for list="{{ contacts }}" as="c" hint-placeholder-count="3">
+            <a href="{{ c.href }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:18px 28px;border-radius:16px;background:rgba(0,12,34,.55);border:1px solid rgba(65,143,222,.25);min-width:180px">
+              <span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#7FB6ED;font-weight:700">{{ c.label }}</span>
+              <span style="font-size:15.5px;font-weight:600;color:#EAF2FF">{{ c.value }}</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+      <div style="max-width:900px;margin:40px auto 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;font-size:12.5px;color:#5E7BA6;border-top:1px solid rgba(65,143,222,.14);padding-top:24px">
+        <span>© 2026 Jesús Enrique Vieira Brito · C.I. V-28.185.364</span>
+        <span style="letter-spacing:1px">CENDIS · LOGÍSTICA · LEAN</span>
+      </div>
+    </section>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  canvasRef = React.createRef();
+
+  componentDidMount(){ this._boot(); }
+  componentWillUnmount(){
+    if(this._raf) cancelAnimationFrame(this._raf);
+    if(this._onResize) window.removeEventListener('resize', this._onResize);
+    if(this._onMove) window.removeEventListener('pointermove', this._onMove);
+  }
+
+  _boot(){
+    const go = () => {
+      if(!window.THREE || !this.canvasRef.current){ this._t = setTimeout(go, 70); return; }
+      this._initScene(window.THREE, this.canvasRef.current);
+    };
+    go();
+  }
+
+  _initScene(THREE, canvas){
+    const renderer = new THREE.WebGLRenderer({canvas, alpha:true, antialias:true});
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+    camera.position.z = 60;
+
+    const size = () => {
+      const w = window.innerWidth, h = window.innerHeight;
+      renderer.setSize(w, h, false);
+      camera.aspect = w/h; camera.updateProjectionMatrix();
+    };
+    size();
+
+    // --- Constellation particle field (AI neural network) ---
+    const N = window.innerWidth < 700 ? 78 : 130;
+    const spanX = 90, spanY = 55, spanZ = 40;
+    const pos = new Float32Array(N*3);
+    const vel = [];
+    for(let i=0;i<N;i++){
+      pos[i*3]   = (Math.random()-0.5)*spanX;
+      pos[i*3+1] = (Math.random()-0.5)*spanY;
+      pos[i*3+2] = (Math.random()-0.5)*spanZ;
+      vel.push([(Math.random()-0.5)*0.05,(Math.random()-0.5)*0.05,(Math.random()-0.5)*0.05]);
+    }
+    const pGeo = new THREE.BufferGeometry();
+    pGeo.setAttribute('position', new THREE.BufferAttribute(pos,3));
+    const sprite = this._dot(THREE);
+    const pMat = new THREE.PointsMaterial({size:1.7, map:sprite, color:0x7FB6ED, transparent:true, opacity:0.95, depthWrite:false, blending:THREE.AdditiveBlending, sizeAttenuation:true});
+    const points = new THREE.Points(pGeo, pMat);
+
+    const lGeo = new THREE.BufferGeometry();
+    const maxLines = N*6;
+    const linePos = new Float32Array(maxLines*3);
+    const lineCol = new Float32Array(maxLines*3);
+    lGeo.setAttribute('position', new THREE.BufferAttribute(linePos,3));
+    lGeo.setAttribute('color', new THREE.BufferAttribute(lineCol,3));
+    const lMat = new THREE.LineBasicMaterial({vertexColors:true, transparent:true, opacity:0.55, blending:THREE.AdditiveBlending, depthWrite:false});
+    const lines = new THREE.LineSegments(lGeo, lMat);
+
+    const field = new THREE.Group();
+    field.add(points); field.add(lines);
+    scene.add(field);
+
+    // --- 3D wireframe figures ---
+    const figs = new THREE.Group();
+    const mk = (geo, s, x, y, z, op) => {
+      const wire = new THREE.WireframeGeometry(geo);
+      const m = new THREE.LineSegments(wire, new THREE.LineBasicMaterial({color:0x418FDE, transparent:true, opacity:op, blending:THREE.AdditiveBlending, depthWrite:false}));
+      m.scale.setScalar(s); m.position.set(x,y,z);
+      m.userData.spin = [(Math.random()-0.5)*0.004+0.002,(Math.random()-0.5)*0.004+0.003];
+      figs.add(m); return m;
+    };
+    mk(new THREE.IcosahedronGeometry(6,1), 1, -34, 15, -10, 0.5);
+    mk(new THREE.OctahedronGeometry(5,0), 1, 36, -14, -6, 0.45);
+    mk(new THREE.TorusKnotGeometry(3.6,1.1,90,12), 1, 30, 20, -20, 0.35);
+    mk(new THREE.DodecahedronGeometry(3.4,0), 1, -30, -18, -14, 0.4);
+    scene.add(figs);
+
+    const NEAR = 12, NEAR2 = NEAR*NEAR;
+    const cA = new THREE.Color(0x418FDE), cB = new THREE.Color(0x001E62);
+
+    const target = {x:0,y:0}, cur = {x:0,y:0};
+    this._onMove = (e) => {
+      target.x = (e.clientX/window.innerWidth - 0.5);
+      target.y = (e.clientY/window.innerHeight - 0.5);
+    };
+    window.addEventListener('pointermove', this._onMove, {passive:true});
+    this._onResize = () => size();
+    window.addEventListener('resize', this._onResize);
+
+    const p = pGeo.attributes.position.array;
+    const animate = () => {
+      this._raf = requestAnimationFrame(animate);
+      // move particles
+      for(let i=0;i<N;i++){
+        p[i*3]+=vel[i][0]; p[i*3+1]+=vel[i][1]; p[i*3+2]+=vel[i][2];
+        if(p[i*3]> spanX/2||p[i*3]< -spanX/2) vel[i][0]*=-1;
+        if(p[i*3+1]> spanY/2||p[i*3+1]< -spanY/2) vel[i][1]*=-1;
+        if(p[i*3+2]> spanZ/2||p[i*3+2]< -spanZ/2) vel[i][2]*=-1;
+      }
+      pGeo.attributes.position.needsUpdate = true;
+      // rebuild lines
+      let li = 0;
+      for(let i=0;i<N && li<maxLines-2;i++){
+        for(let j=i+1;j<N && li<maxLines-2;j++){
+          const dx=p[i*3]-p[j*3], dy=p[i*3+1]-p[j*3+1], dz=p[i*3+2]-p[j*3+2];
+          const d2=dx*dx+dy*dy+dz*dz;
+          if(d2<NEAR2){
+            const t=1-Math.sqrt(d2)/NEAR;
+            linePos[li*3]=p[i*3]; linePos[li*3+1]=p[i*3+1]; linePos[li*3+2]=p[i*3+2];
+            lineCol[li*3]=cA.r*t+cB.r*(1-t); lineCol[li*3+1]=cA.g*t+cB.g*(1-t); lineCol[li*3+2]=cA.b*t+cB.b*(1-t); li++;
+            linePos[li*3]=p[j*3]; linePos[li*3+1]=p[j*3+1]; linePos[li*3+2]=p[j*3+2];
+            lineCol[li*3]=cA.r*t+cB.r*(1-t); lineCol[li*3+1]=cA.g*t+cB.g*(1-t); lineCol[li*3+2]=cA.b*t+cB.b*(1-t); li++;
+          }
+        }
+      }
+      lGeo.setDrawRange(0, li);
+      lGeo.attributes.position.needsUpdate = true;
+      lGeo.attributes.color.needsUpdate = true;
+      // spin figures
+      figs.children.forEach(m=>{ m.rotation.x+=m.userData.spin[0]; m.rotation.y+=m.userData.spin[1]; });
+      // parallax
+      cur.x += (target.x-cur.x)*0.05; cur.y += (target.y-cur.y)*0.05;
+      field.rotation.y = cur.x*0.4; field.rotation.x = cur.y*0.25;
+      figs.rotation.y = cur.x*0.5; figs.rotation.x = cur.y*0.3;
+      camera.position.x = cur.x*8; camera.position.y = -cur.y*6;
+      camera.lookAt(0,0,0);
+      renderer.render(scene, camera);
+    };
+    animate();
+  }
+
+  _dot(THREE){
+    const c = document.createElement('canvas'); c.width=c.height=64;
+    const g = c.getContext('2d');
+    const grd = g.createRadialGradient(32,32,0,32,32,32);
+    grd.addColorStop(0,'rgba(255,255,255,1)');
+    grd.addColorStop(0.35,'rgba(159,195,238,0.9)');
+    grd.addColorStop(1,'rgba(65,143,222,0)');
+    g.fillStyle=grd; g.beginPath(); g.arc(32,32,32,0,Math.PI*2); g.fill();
+    const t = new THREE.CanvasTexture(c); return t;
+  }
+
+  renderVals(){
+    return {
+      canvasRef: this.canvasRef,
+      nav: [
+        {label:'Perfil', href:'#perfil'},
+        {label:'Trayectoria', href:'#experiencia'},
+        {label:'Stack', href:'#herramientas'},
+        {label:'Formación', href:'#perfil'},
+      ],
+      stats: [
+        {value:'37', label:'Colaboradores a cargo'},
+        {value:'24/7', label:'Operación continua'},
+        {value:'+4', label:'Años en CENDIS'},
+        {value:'10', label:'Reportes Oracle WMS'},
+      ],
+      traits: ['Liderazgo de personal','Orientación a resultados','Sentido de urgencia','Actitud proactiva','Equipos multidisciplinarios'],
+      jobs: [
+        {role:'Supervisor de Turno Nocturno — Reposición & Almacenaje', company:'CENDIS Farmatodo', period:'Jul 2024 – Actualidad', img:'./exp-warehouse.jpg', imgCap:'Recorrido de estantería alta', points:[
+          'Lidero y superviso un equipo de 37 colaboradores (montacarguistas y repositores) durante la jornada nocturna, con alta autonomía en la gestión del turno.',
+          'Planifico la operación diaria mediante análisis de datos de Business Intelligence y fórmulas avanzadas de Excel, asegurando una asignación de tareas precisa.',
+          'Consolido información de los reportes Oracle WMS para generar indicadores diarios: unidades canceladas, tareas ejecutadas, productividad y control de temporales.',
+          'Aplico principios de Lean Logistics (7 desperdicios / TIMWOOD) para detectar cuellos de botella y proponer mejoras de flujo de trabajo.',
+        ]},
+        {role:'Operador Logístico', company:'CENDIS Farmatodo', period:'Nov 2021 – Jul 2024', img:'./exp-team.jpg', imgCap:'Impulsando el desarrollo · cadena de suministro', points:[
+          'Coordinación de procesos de almacenaje y reposición de mercancía dentro del centro de distribución.',
+          'Operación de equipos móviles: montacargas eléctrico de pasillo (< 2 t) y traspaleta eléctrica.',
+          'Reposición de mercancía a puestos de despacho, asegurando disponibilidad para el proceso de picking.',
+        ]},
+        {role:'Operador Online — Atención al Cliente Web', company:'Comercial Titanic Center', period:'Jun 2020 – Oct 2021', img:'', imgCap:'', points:[
+          'Gestión de redes sociales y actualización de página web.',
+          'Manejo del sistema SAP para consultas y procesos administrativos.',
+          'Uso y administración de la plataforma Shopify.',
+        ]},
+      ],
+      moments: [
+        {src:'./exp-ia.jpg', cap:'Taller de IA · marzo 2026'},
+        {src:'./exp-pin.jpg', cap:'Creciendo con Farmatodo · Supervisor'},
+        {src:'./exp-bluejacket.jpg', cap:'Jornada CENDIS'},
+      ],
+      tools: [
+        {tag:'WMS', name:'Oracle WMS', desc:'Explotación de reportes operativos para construir los indicadores del turno.', chips:['R002','R012','R025','R031','R033','R105','R120','R121','R140','R155']},
+        {tag:'Data', name:'Excel avanzado & BI', desc:'Fórmulas complejas y Business Intelligence para planificación y KPIs diarios.', chips:['Fórmulas','BI','Google Sheets']},
+        {tag:'ERP', name:'SAP', desc:'Consultas y procesos administrativos sobre el sistema empresarial.', chips:['Consultas','Admin']},
+        {tag:'Método', name:'Lean Logistics', desc:'Identificación de los 7 desperdicios (TIMWOOD) y mejora continua de flujo.', chips:['TIMWOOD','Kaizen','Flujo']},
+      ],
+      skills: [
+        {n:'01', label:'Liderazgo y gestión de personal'},
+        {n:'02', label:'Integración en equipos multidisciplinarios'},
+        {n:'03', label:'Orientación a resultados excelentes'},
+        {n:'04', label:'Sentido de urgencia ante nuevos desafíos'},
+        {n:'05', label:'Comunicación clara con equipo y gerencia'},
+      ],
+      education: [
+        {year:'2025', title:'Diplomado en Excel y Google Sheets', place:'EGCI — Escuela de Gerencia'},
+        {year:'2023', title:'Diplomado en Gerencia Empresarial', place:'I.U.T. “José María Carreño”'},
+        {year:'2022', title:'T.S.U. en Administración de Empresas', place:'I.U.T. “José María Carreño”'},
+        {year:'2018', title:'Bachiller en Ciencias', place:'U.E.P. “José María Carreño”'},
+      ],
+      gallery: [
+        {src:'./jesus-farmatodo.jpg', cap:'La casita azul · Farmatodo'},
+        {src:'./jesus-ftd.jpg', cap:'Jornada CENDIS'},
+        {src:'./jesus-ucab.jpg', cap:'2da promoción · UCAB'},
+        {src:'./jesus-avatar.jpg', cap:'Caracas, Venezuela'},
+      ],
+      contacts: [
+        {label:'Email', value:'vieirajesus221@gmail.com', href:'mailto:vieirajesus221@gmail.com'},
+        {label:'Teléfono', value:'0412-1989692', href:'tel:+584121989692'},
+        {label:'Ubicación', value:'Charallave, Miranda', href:'#top'},
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
